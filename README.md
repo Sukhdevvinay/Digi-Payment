@@ -1,3 +1,8 @@
+<img width="1902" height="922" alt="Screenshot 2025-12-29 104531" src="https://github.com/user-attachments/assets/26e20225-f9b0-4047-bc61-e056a7de69d5" />
+<img width="1917" height="898" alt="Screenshot 2025-12-29 194103" src="https://github.com/user-attachments/assets/6d7f4ba4-f735-48d5-b306-67fccbc57d18" />
+<img width="798" height="665" alt="Screenshot 2025-12-29 194127" src="https://github.com/user-attachments/assets/686db58f-9f21-431b-b7cb-2d26387c5792" />
+<img width="1911" height="905" alt="Screenshot 2025-12-29 194140" src="https://github.com/user-attachments/assets/73e0ccb1-1bd8-4fe5-9562-777b837153f7" />
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
