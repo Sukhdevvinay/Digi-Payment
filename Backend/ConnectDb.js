@@ -6,6 +6,7 @@ const connectmongodb = async () => {
         console.log("Connected to DBMS");
     } catch (error) {
         console.error("Failed to connect to DBMS:", error);
+        throw error; // Rethrow to let app.js know
     }
 };
 
