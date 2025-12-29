@@ -20,13 +20,16 @@ const Login = () => {
         body: JSON.stringify({ name, email, password }),
       });
       try {
-        if (res.status === 200) { // Succesfully signedup
+        const data = await res.json();
+        if (res.ok) { // Succesfully signedup
+          alert("Signup Successful!");
           navigate('/Dashboard');
         } else { // failed to signedup
-          //   alert(data.message); 
+          alert(`Signup Failed: ${data.message}\nDetails: ${data.error || ''}`);
         }
       } catch (e) {
         console.error("Response was not JSON:", e);
+        alert("Server Error: Could not parse response");
       }
     } catch (err) {
       console.log("Signup Error : ", err);
