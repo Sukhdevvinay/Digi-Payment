@@ -30,7 +30,8 @@ router.post('/signup', async (req, res) => {
     res.cookie("token", token);
     return res.status(200).json({ message: "Signup successful" });
   } catch (err) {
-    res.status(500).json({ message: "Server error" });
+    console.error("Signup Error:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 });
 
