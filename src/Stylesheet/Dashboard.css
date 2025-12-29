@@ -1,0 +1,146 @@
+/* src/Dashboard.css */
+.dashboard { background-color: #f9fafb; min-height: 100vh; }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.user-profile { display: flex; align-items: center; gap: 10px; }
+.avatar, .avatar-small {
+  background-color: #e5e7eb;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.avatar { width: 40px; height: 40px; }
+.avatar-small { width: 35px; height: 35px; margin-right: 10px; }
+.logout-btn {
+    background: transparent;
+    border: 1px solid #d1d5db;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.content { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+
+.balance-card {
+  background: #111827; /* Dark modern card */
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.balance-card p { margin: 0; color: #9ca3af; }
+.balance-card h1 { margin: 10px 0 20px 0; font-size: 2.5rem;}
+.action-buttons { display: flex; gap: 10px; }
+.action-btn {
+    background: #374151;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+.action-btn:hover { background: #4b5563; }
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+@media (max-width: 768px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+}
+
+.history-section, .users-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.search-bar {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.transaction-list { padding: 0; list-style: none; margin: 0; }
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+.transaction-item:last-child { border-bottom: none; }
+.t-info { display: flex; flex-direction: column; }
+.t-desc { font-weight: 500; color: #1f2937; }
+.t-date { font-size: 0.8rem; color: #9ca3af; }
+.t-amount { font-weight: 600; }
+.transaction-item.credit .t-amount { color: #059669; }
+.transaction-item.debit .t-amount { color: #dc2626; }
+
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9fafb;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.user-info { display: flex; align-items: center; }
+.user-info h4 { margin: 0; }
+.user-info p { margin: 0; color: #6b7280; font-size: 0.9rem; }
+
+.send-btn {
+  background-color: #111827;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Modal Core Styles - reused from existing or assumed globals, refining here */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    animation: slideUp 0.3s ease;
+}
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal-header { display: flex; justify-content: space-between; margin-bottom: 1.5rem; }
+.close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+.amount-input input { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 6px; margin-top: 5px; }
+.confirm-btn { width: 100%; background: #2563eb; color: white; padding: 12px; border: none; border-radius: 6px; margin-top: 1.5rem; cursor: pointer; font-size: 1rem; }
