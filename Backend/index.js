@@ -51,9 +51,14 @@ app.use('/transaction', transactionRoutes);
 const userRoutes = require('./Routes/user');
 app.use('/user', userRoutes);
 
-server.listen(PORT, function () {
-  console.log(`App is listening on port ${PORT}`);
-})
+// Wait for DB connection before starting server
+connectmongodb().then(() => {
+  server.listen(PORT, function () {
+    console.log(`App is listening on port ${PORT}`);
+  })
+}).catch(err => {
+  console.error("Failed to connect to DB, server not started", err);
+});
 
 
 // Accounts :
