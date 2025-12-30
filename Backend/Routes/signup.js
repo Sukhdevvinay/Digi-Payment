@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 router.post('/signup', async (req, res) => {
+  console.log("➡️ Signup Route Hit with body:", req.body);
   const { name, email, password } = req.body;
   try {
     const user = await User.findOne({ email });
