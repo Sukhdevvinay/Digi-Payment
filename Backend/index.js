@@ -1,8 +1,10 @@
+// ```javascript
 const express = require('express');
 const path = require('path');
 // Load env vars. Check root folder if running from Backend/
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
+const mongoose = require('mongoose'); // Import mongoose
 const connectmongodb = require("./ConnectDb");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -61,7 +63,7 @@ app.use('/user', userRoutes);
 // Wait for DB connection before starting server
 connectmongodb().then(() => {
   server.listen(PORT, function () {
-    console.log(`App is listening on port ${PORT}`);
+    console.log(`App is listening on port ${PORT} `);
   })
 }).catch(err => {
   console.error("Failed to connect to DB, server not started", err);
