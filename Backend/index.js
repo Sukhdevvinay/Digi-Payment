@@ -44,6 +44,13 @@ const Signup = require('./Routes/signup');
 app.get("/", (req, res) => {
   res.send("Backend Running");
 })
+app.get("/health", (req, res) => {
+  res.json({
+    status: 'ok',
+    dbState: mongoose.connection.readyState,
+    host: mongoose.connection.host
+  });
+})
 app.use('/login', login);
 app.use('/Signup', Signup); // Signup/signup
 const transactionRoutes = require('./Routes/transaction');
