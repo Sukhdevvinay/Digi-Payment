@@ -21,22 +21,9 @@ const FRONTEND_URL = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_U
 // Better to use a separate var or just allow all for now if simple. 
 // User's .env had "Frontend_URL", let's use that if feasible, or just fallback to localhost:3001 and allow wildcard/dynamic.
 
-// Explicitly allow both Localhost and Vercel
-const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:3001",
-  "https://sukhbank.vercel.app"
-];
-
+// CORS: Allow ALL origins temporarily to debug 502 issue
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.log("Blocked by CORS:", origin);
-      callback(null, true); // Temporarily allow all for debugging, but we log it
-    }
-  },
+  origin: "*",
   credentials: true
 }));
 
