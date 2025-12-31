@@ -21,9 +21,26 @@ const FRONTEND_URL = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_U
 // Better to use a separate var or just allow all for now if simple. 
 // User's .env had "Frontend_URL", let's use that if feasible, or just fallback to localhost:3001 and allow wildcard/dynamic.
 
-// CORS: Allow ALL origins temporarily to debug 502 issue
+// CORS: Explicitly allow Vercel and Localhost (Required for credentials: true)
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "https://sukhbank.vercel.app"
+];
+
 app.use(cors({
-  origin: "*",
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.indexOf(origin) === -1) {
+      console.log("Blocked by CORS:", origin);
+      // For debugging, you might want to allow it temporarily or just log it.
+      // Strictly blocking it is safer:
+      return callback(new Error('The CORS policy for this site does not allow access from the specified Origin.'), false);
+    }
+    return callback(null, true);
+  },
   credentials: true
 }));
 
@@ -54,12 +71,24 @@ app.get("/", (req, res) => {
   res.send("Backend Running");
 })
 app.get("/health", (req, res) => {
+  const dbState = mongoose.connection.readyState;
   res.json({
     status: 'ok',
-    dbState: mongoose.connection.readyState,
+    dbState,
+    dbStateString: ['disconnected', 'connected', 'connecting', 'disconnecting'][dbState],
     host: mongoose.connection.host
   });
 })
+
+// Middleware: Check DB connection before handling requests
+app.use((req, res, next) => {
+  if (mongoose.connection ? mongoose.connection.readyState !== 1 : true) {
+    if (req.path === '/health') return next(); // Allow health check
+    return res.status(503).json({ message: "Database not connected yet", dbState: mongoose.connection ? mongoose.connection.readyState : 0 });
+  }
+  next();
+});
+
 app.use('/login', login);
 app.use('/Signup', Signup); // Signup/signup
 const transactionRoutes = require('./Routes/transaction');
@@ -67,13 +96,14 @@ app.use('/transaction', transactionRoutes);
 const userRoutes = require('./Routes/user');
 app.use('/user', userRoutes);
 
-// Wait for DB connection before starting server
-connectmongodb().then(() => {
-  server.listen(PORT, function () {
-    console.log(`App is listening on port ${PORT} `);
-  })
-}).catch(err => {
-  console.error("Failed to connect to DB, server not started", err);
+// Start Server IMMEDIATELY (Do not wait for DB)
+server.listen(PORT, function () {
+  console.log(`App is listening on port ${PORT}`);
+});
+
+// Connect DB in background
+connectmongodb().catch(err => {
+  console.error("Failed to connect to DB:", err);
 });
 
 
