@@ -21,7 +21,10 @@ const History = () => {
                 limit: 10
             }).toString();
 
-            const res = await fetch(`${config.API_URL}/transaction/all?${query}`, { credentials: 'include' });
+            const token = localStorage.getItem('token');
+            const res = await fetch(`${config.API_URL}/transaction/all?${query}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
             const data = await res.json();
 
             if (res.ok) {
