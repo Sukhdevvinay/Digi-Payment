@@ -15,20 +15,23 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     try {
+      const token = localStorage.getItem('token');
+      const headers = { 'Authorization': `Bearer ${token}` };
+
       // Fetch User
-      const userRes = await fetch(`${config.API_URL}/user/getuser`, { credentials: 'include' });
+      const userRes = await fetch(`${config.API_URL}/user/getuser`, { headers });
       if (userRes.ok) {
         const userData = await userRes.json();
         setCurrentUser(userData);
       }
 
       // Fetch Balance
-      const balanceRes = await fetch(`${config.API_URL}/transaction/balance`, { credentials: 'include' });
+      const balanceRes = await fetch(`${config.API_URL}/transaction/balance`, { headers });
       const balanceData = await balanceRes.json();
       if (balanceRes.ok) setBalance(balanceData.balance);
 
       // Fetch History
-      const historyRes = await fetch(`${config.API_URL}/transaction/history`, { credentials: 'include' });
+      const historyRes = await fetch(`${config.API_URL}/transaction/history`, { headers });
       const historyData = await historyRes.json();
       if (historyRes.ok) setTransactions(historyData);
 
