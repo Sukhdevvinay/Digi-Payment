@@ -19,7 +19,11 @@ router.post('/login', async (req, res) => {
         if (result == false) res.send("Password is incoorect");
         else {
           let token = jwt.sign({ email: email }, process.env.JWT_SECRET || "privatestring");
-          res.cookie("token", token);
+          res.cookie("token", token, {
+            httpOnly: true,
+            secure: true, // Required for Vercel -> Render (HTTPS)
+            sameSite: 'none' // Required for Cross-Site
+          });
           return res.status(200).json({ message: "Login Succesfuly" });
         };
       })
