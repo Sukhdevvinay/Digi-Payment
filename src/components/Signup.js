@@ -22,6 +22,7 @@ const Login = () => {
       try {
         const data = await res.json();
         if (res.ok) { // Succesfully signedup
+          localStorage.setItem('token', data.token); // Save token!
           alert("Signup Successful!");
           navigate('/Dashboard');
         } else { // failed to signedup
