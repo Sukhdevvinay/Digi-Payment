@@ -1,5 +1,5 @@
 const config = {
-    API_URL: process.env.REACT_APP_API_URL || 'http://localhost:3000'
+    API_URL: "https://digi-payment.onrender.com" // Hardcoded to fix Vercel Env Var issues
 };
 
 export default config;
