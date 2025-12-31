@@ -24,7 +24,10 @@ const SendMoney = ({ onClose, onSendSuccess }) => {
   // Fetch Recent Payees on validation step
   useEffect(() => {
     if (step === 1) {
-      fetch(`${config.API_URL}/transaction/recent-payees`, { credentials: 'include' })
+      const token = localStorage.getItem('token');
+      fetch(`${config.API_URL}/transaction/recent-payees`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
         .then(res => res.json())
         .then(data => {
           if (Array.isArray(data)) setRecentPayees(data);
@@ -44,10 +47,13 @@ const SendMoney = ({ onClose, onSendSuccess }) => {
     if (!searchEmail) return alert("Please enter an email");
     setLoading(true);
     try {
+      const token = localStorage.getItem('token');
       const res = await fetch(`${config.API_URL}/user/verify`, {
         method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({ email: searchEmail })
       });
       const data = await res.json();
@@ -77,12 +83,13 @@ const SendMoney = ({ onClose, onSendSuccess }) => {
     }
     setLoading(true);
     try {
+      const token = localStorage.getItem('token');
       const res = await fetch(`${config.API_URL}/transaction/send`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
-        credentials: 'include',
         body: JSON.stringify({
           recipientEmail: recipient.email,
           amount: Number(amount),
