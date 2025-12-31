@@ -5,31 +5,39 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-router.post('/login', async (req, res) => {
-  const { email, password } = req.body; // User Entered Details
+// Route: POST /
+router.post('/', async (req, res) => {
+  console.log("➡️ Signup Route Hit with body:", req.body);
+  const { name, email, password } = req.body;
   try {
     const user = await User.findOne({ email });
-    if (!user) { // User is not found or Incorrect Password
-      return res.status(401).json({ message: 'Invalid credentials' });
-    } else {
-      bcrypt.compare(password, user.password, function (err, result) {
-        if (result == false) res.send("Password is incoorect");
-        else {
-          let token = jwt.sign({ email: email }, process.env.JWT_SECRET || "privatestring");
-          res.cookie("token", token, {
-            httpOnly: true,
-            secure: true, // Required for Vercel -> Render (HTTPS)
-            sameSite: 'none' // Required for Cross-Site
-          });
-          return res.status(200).json({ message: "Login Succesfuly" });
-        };
-      })
-    }
+    if (user) return res.status(400).json({ message: "Email is Already Used By Another Account" });
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    const new_user = await User.create({
+      name,
+      email,
+      password: hash
+    });
+
+    let token = jwt.sign({ email: new_user.email }, process.env.JWT_SECRET || "privatestring");
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true, // Required for Vercel -> Render (HTTPS)
+      sameSite: 'none' // Required for Cross-Site
+    });
+    return res.status(200).json({ message: "Signup successful" });
   } catch (err) {
-    return res.status(500).json({ message: 'Server error', error: err });
+    console.error("Signup Error:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 });
 
