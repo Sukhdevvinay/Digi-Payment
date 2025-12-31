@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
       secure: true, // Required for Vercel -> Render (HTTPS)
       sameSite: 'none' // Required for Cross-Site
     });
-    return res.status(200).json({ message: "Signup successful" });
+    return res.status(200).json({ message: "Signup successful", token }); // Send token to frontend
   } catch (err) {
     console.error("Signup Error:", err);
     res.status(500).json({ message: "Server error", error: err.message });
