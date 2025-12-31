@@ -24,7 +24,7 @@ router.post('/login', async (req, res) => {
             secure: true, // Required for Vercel -> Render (HTTPS)
             sameSite: 'none' // Required for Cross-Site
           });
-          return res.status(200).json({ message: "Login Succesfuly" });
+          return res.status(200).json({ message: "Login Succesfuly", token });
         };
       })
     }
