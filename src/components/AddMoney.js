@@ -21,12 +21,13 @@ const AddMoney = () => {
 
     const handleAddMoney = async () => {
         try {
+            const token = localStorage.getItem('token');
             const res = await fetch(`${config.API_URL}/transaction/add`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
-                credentials: 'include',
                 body: JSON.stringify({
                     amount: Number(amount),
                     idempotencyKey
