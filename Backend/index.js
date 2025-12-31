@@ -90,11 +90,17 @@ app.use((req, res, next) => {
 });
 
 app.use('/login', login);
-app.use('/Signup', Signup); // Signup/signup
+app.use('/signup', Signup); // Lowercase /signup to ensure matching
 const transactionRoutes = require('./Routes/transaction');
 app.use('/transaction', transactionRoutes);
 const userRoutes = require('./Routes/user');
 app.use('/user', userRoutes);
+
+// 404 Handler (Must be last)
+app.use((req, res, next) => {
+  console.log(`❌ 404 Not Found: ${req.method} ${req.originalUrl}`);
+  res.status(404).send("Route not found");
+});
 
 // Start Server IMMEDIATELY (Do not wait for DB)
 server.listen(PORT, function () {
