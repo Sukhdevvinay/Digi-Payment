@@ -13,7 +13,7 @@ const Login = () => {
   const Singupfunction = async (e) => {
     e.preventDefault();
     try {   // Sending a data to this end Point after filling this form
-      const res = await fetch(`${config.API_URL}/Signup/signup`, {
+      const res = await fetch(`${config.API_URL}/signup/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
