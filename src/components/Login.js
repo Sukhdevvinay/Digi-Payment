@@ -22,6 +22,8 @@ const Login = () => {
       });
       try {
         if (res.status === 200) { // Succesfully Login
+          const data = await res.json();
+          localStorage.setItem('token', data.token); // Save token!
           navigate('/Dashboard');
         } else { // failed to Login
           console.log("Failed to login");
