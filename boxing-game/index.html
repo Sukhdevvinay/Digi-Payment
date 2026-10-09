@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boxing Game - LLD Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🥊 Boxing Game 🥊</h1>
+        
+        <!-- Game Info -->
+        <div class="game-info">
+            <div class="player-info">
+                <h2 id="player1-name">Player 1</h2>
+                <div class="health-bar">
+                    <div id="player1-health" class="health-fill"></div>
+                </div>
+                <p id="player1-stats">Health: 100 | Energy: 100</p>
+            </div>
+            
+            <div class="round-info">
+                <h2 id="round-display">Round 1</h2>
+                <p id="time-display">60s</p>
+                <p id="status-display">Click to Start</p>
+            </div>
+            
+            <div class="player-info">
+                <h2 id="player2-name">Player 2</h2>
+                <div class="health-bar">
+                    <div id="player2-health" class="health-fill"></div>
+                </div>
+                <p id="player2-stats">Health: 100 | Energy: 100</p>
+            </div>
+        </div>
+
+        <!-- Canvas for game -->
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+
+        <!-- Controls -->
+        <div class="controls">
+            <h3>Controls:</h3>
+            <div class="control-grid">
+                <div>
+                    <h4>Player 1 (Left):</h4>
+                    <p>A/D - Move | Q - Punch | E - Defend</p>
+                </div>
+                <div>
+                    <h4>Player 2 (Right):</h4>
+                    <p>← → - Move | P - Punch | O - Defend</p>
+                </div>
+            </div>
+            <button id="startBtn">Start Game</button>
+            <button id="resetBtn">Reset Game</button>
+        </div>
+
+        <!-- Results -->
+        <div id="resultModal" class="modal hidden">
+            <div class="modal-content">
+                <h2 id="resultTitle">Game Over!</h2>
+                <p id="resultMessage">Player 1 Wins!</p>
+                <button onclick="location.reload()">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="Boxer.js"></script>
+    <script src="Punch.js"></script>
+    <script src="Game.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
