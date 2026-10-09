@@ -1,73 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boxing Game - LLD Demo</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boxing Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="container">
-        <h1>🥊 Boxing Game 🥊</h1>
-        
-        <!-- Game Info -->
-        <div class="game-info">
-            <div class="player-info">
-                <h2 id="player1-name">Player 1</h2>
-                <div class="health-bar">
-                    <div id="player1-health" class="health-fill"></div>
-                </div>
-                <p id="player1-stats">Health: 100 | Energy: 100</p>
-            </div>
-            
-            <div class="round-info">
-                <h2 id="round-display">Round 1</h2>
-                <p id="time-display">60s</p>
-                <p id="status-display">Click to Start</p>
-            </div>
-            
-            <div class="player-info">
-                <h2 id="player2-name">Player 2</h2>
-                <div class="health-bar">
-                    <div id="player2-health" class="health-fill"></div>
-                </div>
-                <p id="player2-stats">Health: 100 | Energy: 100</p>
-            </div>
+      <h1>🥊 Boxing Game 🥊</h1>
+
+      <div class="hud">
+        <div class="fighter-box">
+          <h2>Player 1</h2>
+          <div class="health-bar">
+            <div id="player1HealthFill" class="health-fill blue"></div>
+          </div>
+          <p id="player1Stats">Health: 100 | Energy: 100</p>
         </div>
 
-        <!-- Canvas for game -->
-        <canvas id="gameCanvas" width="800" height="400"></canvas>
-
-        <!-- Controls -->
-        <div class="controls">
-            <h3>Controls:</h3>
-            <div class="control-grid">
-                <div>
-                    <h4>Player 1 (Left):</h4>
-                    <p>A/D - Move | Q - Punch | E - Defend</p>
-                </div>
-                <div>
-                    <h4>Player 2 (Right):</h4>
-                    <p>← → - Move | P - Punch | O - Defend</p>
-                </div>
-            </div>
-            <button id="startBtn">Start Game</button>
-            <button id="resetBtn">Reset Game</button>
+        <div class="center-box">
+          <h2 id="roundDisplay">Round 1</h2>
+          <p id="timeDisplay">60s</p>
+          <p id="statusDisplay">Press Start</p>
         </div>
 
-        <!-- Results -->
-        <div id="resultModal" class="modal hidden">
-            <div class="modal-content">
-                <h2 id="resultTitle">Game Over!</h2>
-                <p id="resultMessage">Player 1 Wins!</p>
-                <button onclick="location.reload()">Play Again</button>
-            </div>
+        <div class="fighter-box">
+          <h2>Player 2</h2>
+          <div class="health-bar">
+            <div id="player2HealthFill" class="health-fill red"></div>
+          </div>
+          <p id="player2Stats">Health: 100 | Energy: 100</p>
         </div>
+      </div>
+
+      <canvas id="gameCanvas" width="800" height="420"></canvas>
+
+      <div class="controls">
+        <div class="control-card">
+          <h3>Player 1</h3>
+          <p>A / D = Move</p>
+          <p>Q = Punch</p>
+          <p>E = Defend</p>
+        </div>
+        <div class="control-card">
+          <h3>Player 2</h3>
+          <p>← / → = Move</p>
+          <p>P = Punch</p>
+          <p>O = Defend</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="startBtn">Start Game</button>
+        <button id="resetBtn" class="secondary">Reset</button>
+      </div>
+    </div>
+
+    <div id="resultModal" class="modal hidden">
+      <div class="modal-content">
+        <h2 id="resultTitle">Fight Over</h2>
+        <p id="resultMessage">Player 1 wins!</p>
+        <button id="playAgainBtn">Play Again</button>
+      </div>
     </div>
 
     <script src="Boxer.js"></script>
     <script src="Punch.js"></script>
     <script src="Game.js"></script>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
